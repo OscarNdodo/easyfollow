@@ -1,30 +1,44 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div>
+    <Navbar @btnPesquisar="btnPesquisar"/>
+    <ResultadoBuscaVue @fecharBusca="fecharBusca" v-if="pesquisar" />
+  </div>
+  <RouterView />
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import ResultadoBuscaVue from './components/base/ResultadoBusca.vue';
+import Navbar from "./components/Navbar.vue";
+export default {
+  name: "App",
+  components: {
+    Navbar,
+    ResultadoBuscaVue
+  },
+  data() {
+    return {
+      pesquisar: false,
+    };
+  },
+  methods: {
+    fecharBusca() {
+      this.pesquisar = false;
+    },
+    btnPesquisar(){
+      //Axaios
+      this.pesquisar = true;
     }
+  },
+};
+</script>
+
+<style>
+body {
+  background-color: #ffffff;
+}
+@media screen and (min-width: 1024px) {
+  body {
+    padding: 0 150px;
   }
 }
 </style>

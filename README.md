@@ -1,3 +1,26 @@
+### COISAS PARA FAZER
+	Pagina de edicao
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # app03
 
 ## Project setup

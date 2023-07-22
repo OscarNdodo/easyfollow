@@ -1,0 +1,139 @@
+<template>
+  <header>
+    <img src="/assets/03.jpg" alt="cover" />
+    <div class="info">
+      <nav>
+        <RouterLink to="/">easyfollow.site</RouterLink>
+        <span>&copy;2023</span>
+      </nav>
+      <div class="sobre">
+        <div class="dados">
+          <!-- <p>Olá, Sou</p> -->
+          <h1>Oscar Ndodo</h1>
+          <h2>Programador</h2>
+        </div>
+        <ul>
+          <li><RouterLink to="#" class="fa fa-facebook"></RouterLink></li>
+          <li><RouterLink to="#" class="fa fa-instagram"></RouterLink></li>
+          <li><RouterLink to="#" class="fa fa-whatsapp"></RouterLink></li>
+          <li><RouterLink to="#" class="fa fa-twitter"></RouterLink></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+</template>
+
+<script>
+export default {
+  name: "introVue",
+};
+</script>
+
+<style scoped>
+img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40vh;
+  background-color: #3a3a3d;
+}
+header {
+  width: 100%;
+}
+header .info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 20px;
+  height: 100%;
+}
+header .info nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header .info nav a,
+span {
+  color: #ffffff82;
+  font-weight: 500;
+  font-size: 0.8em;
+}
+header .info .sobre {
+  width: 100%;
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+header .info .sobre .dados {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+header .info .sobre .dados h1 {
+  color: #fff;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+header .info .sobre .dados h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+  color: #ffffffd6;
+  font-weight: 100;
+  font-size: 1.1em;
+}
+header .info .sobre ul {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-top: 15%;
+}
+header .info .sobre ul li {
+  margin: 0 5px;
+}
+header .info .sobre ul li a {
+  color: #ffffffd0;
+  font-size: 1.2em;
+}
+
+/** Responsividade **/
+
+@media screen and (min-width: 920px) {
+  img {
+    height: 100vh;
+  }
+  header {
+    width: 100%;
+  }
+  header .info {
+    padding: 5px 100px;
+  }
+  header .info nav a,
+  span {
+    font-size: 1em;
+  }
+
+  header .info .sobre .dados h1 {
+    font-size: 4em;
+  }
+  header .info .sobre .dados h2 {
+    font-size: 2em;
+    padding-left: 15px;
+    margin-top: 10px;
+    border-left: 5px solid #ffffff;
+  }
+
+  header .info .sobre ul li a {
+    font-size: 1.8em;
+    margin-left: 20px;
+  }
+}
+</style>
