@@ -1,10 +1,10 @@
 <template>
   <div class="item">
-    <img src="/assets/02.jpg" alt="" />
+    <img :src="capa" alt="" />
     <ul>
       <li>
-        <RouterLink to="/portifolio">Oscar Ndodo</RouterLink>
-        <p>Front-End Developer</p>
+        <RouterLink to="/portifolio">{{ nome }}</RouterLink>
+        <p>{{ profissao }}</p>
       </li>
       <li>
         <RouterLink to="/portifolio/criar" class="fa fa-pencil-square" style="color: #227c9d;"></RouterLink>
@@ -17,6 +17,12 @@
 <script>
 export default {
   name: "ItemPortVue",
+  props: {
+    capa: {
+      type: String,
+      default: "/assets/02.jpg"
+    }
+  }
 };
 </script>
 

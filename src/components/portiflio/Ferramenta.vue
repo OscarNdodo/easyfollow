@@ -32,10 +32,6 @@ export default {
   components: {
     ErroVue
   },
-    beforeMount() {
-    this.id = this.$store.state.usuario.usuario.id;
-    this.nome = this.$store.state.usuario.usuario.nome;
-  },
   methods: {
     ferramentaClick(){
      

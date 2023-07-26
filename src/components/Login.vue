@@ -2,7 +2,7 @@
   <div class="login">
     <form>
       <h2>Login</h2>
-      <ErroVue :erro="erro" />
+      <p class="erro">{{ erro }}</p>
       <label for="email" class="fa fa-envelope">
         <input
           type="email"
@@ -27,12 +27,8 @@
 
 <script>
 import api from "@/api";
-import ErroVue from "./base/Erro.vue"
 export default {
   name: "LoginVue",
-  components: {
-    ErroVue
-  },
   data() {
     return {
       erro: "",
@@ -45,7 +41,7 @@ export default {
       return this.$emit("criarConta");
     },
     login() {
-      if(this.email.length < 13 || this.senha.length < 6){
+      if (this.email.length < 13 || this.senha.length < 6) {
         this.erro = "Email ou senha incorrecta!";
       }
       const dados = {
@@ -91,6 +87,13 @@ export default {
   top: 60px;
   font-size: 1.4em;
   color: red;
+}
+.login .erro{
+  color: red;
+  text-decoration: none;
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+  font-size: 1em;
 }
 .login form {
   width: 320px;

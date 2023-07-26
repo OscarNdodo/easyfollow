@@ -1,8 +1,11 @@
 <template>
   <div class="login">
-    <form method="post" action="">
+    <form enctype="multipart/form-data">
       <h2>Nova Conta</h2>
-      <ErroVue :erro="erro" />
+       <p class="err">{{ erro }}</p>
+      <label for="foto" class="fa fa-image">
+        <input type="file" @change="getFoto" required />
+      </label>
       <label for="nome" class="fa fa-user">
         <input
           type="text"
@@ -42,16 +45,13 @@
 </template>
 
 <script>
-import ErroVue from "./base/Erro.vue";
 import api from "@/api";
 export default {
   name: "ContaVue",
-  components: {
-    ErroVue
-  },
   data() {
     return {
       erro: "",
+      foto: null,
       nome: null,
       email: null,
       telefone: null,
@@ -62,8 +62,11 @@ export default {
     cancelarConta() {
       return this.$emit("cancelarConta");
     },
-    criarConta() {
-      try {
+    getFoto(event) {
+      this.foto = event.target.files[0];
+    },
+    async criarConta() {
+      // try {
         if (this.nome.length < 6 || this.nome == "") {
           this.erro = "O nome é muito curto!";
           this.cleanErro();
@@ -77,35 +80,44 @@ export default {
           this.erro = "O senha é muito curta!";
           this.cleanErro();
         } else {
-          console.log(this.nome, this.email, this.telefone, this.senha);
-          const dados = {
-            nome: this.nome,
-            email: this.email,
-            telefone: this.telefone,
-            senha: this.senha,
-          };
-          api
+
+          const dados = new FormData();
+          dados.append("foto", this.foto, this.foto.name);
+          dados.append("nome", this.nome);
+          dados.append("email", this.email);
+          dados.append("telefone", this.telefone);
+          dados.append("senha", this.senha);
+          // console.log(dados);
+          await api
             .post("/usuario/criar", dados)
-            .then((res) => res.data)
-            .then((dado) => {
-              if (dado.error === true) {
-                this.erro = dado.msg;
-                this.cleanErro();
-              } else {
-                this.nome = "";
-                this.email = "";
-                this.telefone = "";
-                this.senha = "";
-                this.cancelarConta();
-              }
+            .then((res) => {
+              return res.data
             })
-            .catch((erro) => console.log("Erro: " + erro));
+            .then((dado) => {
+              if(!dado.error){
+                this.foto = null;
+                this.nome = null;
+                this.email = null;
+                this.telefone = null;
+                this.senha = null;
+                return this.$emit("cancelarConta");
+              }else{
+                  this.erro = dado.msg;
+                  this.cleanErro();
+              }
+              
+            })
+            .catch((erro) => {
+              this.erro = "Esta conta já existe!";
+              console.log("Erro: " + erro);
+              this.cleanErro();
+            });
         }
-      } catch (erro) {
-        this.erro = "Priencha os campos!";
-        this.cleanErro();
-        console.log(erro);
-      }
+      // } catch (erro) {
+      //   this.erro = "Priencha os campos!";
+      //   this.cleanErro();
+      //   console.log(erro);
+      // }
     },
 
     cleanErro() {
@@ -130,6 +142,13 @@ export default {
   top: 10px;
   font-size: 1.4em;
   color: red;
+}
+.login form .err{
+  color: #F00;
+  text-decoration: none;
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+  font-size: 1em;
 }
 .login form {
   width: 320px;
@@ -166,6 +185,7 @@ export default {
   padding: 5px 10px;
   font-size: 1em;
 }
+
 .login form .fa {
   color: #c0bbbb;
 }

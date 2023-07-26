@@ -1,16 +1,15 @@
 <template>
   <main>
     <h2>EasyPortifólio</h2>
-    <!-- <h3>Bem-vindo</h3> -->
     <div class="container">
       <section class="image">
         <img src="/assets/01.jpg" alt="welcome" />
       </section>
       <section class="info">
         <p>
-         {{welcome}}
+         Impressione as empresas com as suas experiências, habilidades e projectos realizados. Crie um portifólio moderno com apenas alguns cliques. Selecionado os diversos modelos disponiveis para te, de acordo com a sua área de trabalho.
         </p>
-        <RouterLink to="/conta" cla
+        <RouterLink to="/conta"
           >Experimentar <span class="fa fa-smile-o"></span
         ></RouterLink>
       </section>
@@ -19,20 +18,8 @@
 </template>
 
 <script>
-import api from "../api/index.js";
 export default {
   name: "HomeVue",
-  data(){
-    return {
-      welcome: "Impressione as empresas com as suas experiências, habilidades e projectos realizados. Crie um portifólio moderno com apenas alguns cliques. Selecionado os diversos modelos disponiveis para te, de acordo com a sua área de trabalho."
-    }
-  },
-  beforeMount(){
-     api.get("/").then(res => res.data).
-     then((data) => {
-      this.welcome = data.content;
-     })
-  },
 };
 </script>
 

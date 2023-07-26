@@ -1,21 +1,22 @@
 <template>
-  <p class="erro">{{ erro }}</p>
+  <p class="err">{{ erro }}</p>
 </template>
 
 <script>
 export default {
-name: "ErroVue",
-props: {
-	erro: String
-}
-}
+  name: "ErroVue",
+  props: {
+    erro: String,
+  },
+};
 </script>
 
 <style scoped>
-.erro {
-  color: red;
+.err{
+  color: #F00;
   text-decoration: none;
   margin-bottom: 3px;
   letter-spacing: 1px;
+  font-size: 1em;
 }
 </style>

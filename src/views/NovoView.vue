@@ -4,10 +4,6 @@
     <FerramentaVue @ferramentaClick="ferramentaClick" v-else-if="ferramenta" />
     <ProjectoVue @projectoClick="projectoClick" v-else-if="projecto" />
     <LinkVue @linkClick="linkClick" v-else-if="contato" />
-    <div class="done" v-else>
-      <h2>Portifolio Criado!</h2>
-      <RouterLink to="/portifolios">Concluir</RouterLink>
-    </div>
     <AlertVue
       @clickNao="clickNao"
       @clickSim="clickSim"
@@ -45,13 +41,8 @@ export default {
       contato: false,
       //Portifolio criar
       idUsuario: "",
-      nomeUsuario: "",
-      portifolio: {},
+      idPortifolio: ""
     };
-  },
-  beforeMount() {
-    this.idUsuario = this.$store.state.usuario.usuario.id;
-    this.nomeUsuario = this.$store.state.usuario.usuario.nome;
   },
   methods: {
     clickNao(event) {
@@ -62,19 +53,47 @@ export default {
       this.confirma = event;
       this.alert = false;
     },
-    novoClick(event) {
+    async novoClick(event) {
+    this.idUsuario = this.$store.state.usuario.usuario.id;
       const data = event;
-      api.post(`/usuario/${this.idUsuario}/criar`, data)
-      .then((res) => console.log(res))
-      .catch((erro) => console.log(erro))
-      this.novo = false;
-      this.ferramenta = true;
+      await api.post(`/usuario/${this.idUsuario}/portifolio/criar`, data)
+      .then((res) => res.data)
+      .then((dados) => {
+        if(!dados.error){
+          this.idPortifolio = dados.portifolio.id;
+          this.novo = false;
+          this.ferramenta = true;
+        }else{
+          this.erro = dados.msg;
+        }
+      })
+      .catch((erro) => {
+        this.erro = "Erro! Tente novamente.";
+        console.log("ERRO: " + erro);
+      })
+
     },
-    ferramentaClick() {
+    async ferramentaClick(event) {
+      const data = event;
       this.msgAlert = "Deseja adicionar outra ferramenta ?";
       this.alert = true;
       if (this.confirma) {
         //Axais
+      await api.post(`/usuario/${this.idUsuario}/portifolio/${this.idPortifolio}/ferramenta/criar`, data)
+      .then((res) => res.data)
+      .then((dados) => {
+        if(!dados.error){
+          this.idPortifolio = dados.portifolio.id;
+          this.novo = false;
+          this.ferramenta = true;
+        }else{
+          this.erro = dados.msg;
+        }
+      })
+      .catch((erro) => {
+        this.erro = "Erro! Tente novamente.";
+        console.log("ERRO: " + erro);
+      })
       } else {
         this.alert = false;
         this.ferramenta = false;
@@ -109,30 +128,4 @@ export default {
 </script>
 
 <style scoped>
-.done {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px #a2a7ae;
-  padding: 20px;
-  border-radius: 5px;
-  margin-top: 200px;
-}
-.done h2 {
-  font-size: 1.2em;
-  color: #227c9d;
-  text-transform: uppercase;
-  padding: 20px 0;
-}
-.done a {
-  width: 100%;
-  padding: 10px 30px;
-  color: #ffffff;
-  background: linear-gradient(15deg, #2e83ea, #38d2e3);
-  text-align: center;
-  font-size: 1.3em;
-  margin-top: 20px;
-  border-radius: 5px;
-}
 </style>

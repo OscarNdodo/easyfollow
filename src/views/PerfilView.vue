@@ -2,7 +2,7 @@
   <section>
     <aside>
       <h2>Perfil</h2>
-      <img src="/assets/02.jpg" alt="user" />
+      <img :src="foto" :alt="nome" />
     </aside>
     <ul>
       <li>
@@ -14,19 +14,24 @@
       <li>
         <span>Celular: </span><span>{{ telefone }}</span>
       </li>
-      <li>
+      <!-- <li>
         <span>Portifolios: </span><span>{{ portifolios }} criados</span>
+      </li> -->
+      <li>
+        <RouterLink to="/portifolio/criar" class="novo-port">
+          Novo Portifolio
+        </RouterLink>
       </li>
     </ul>
   </section>
 </template>
 
 <script>
-import api from "@/api";
 export default {
   name: "PerfilView",
   data() {
     return {
+      foto: "/assets/02.jpg",
       nome: "",
       email: "",
       telefone: "",
@@ -35,19 +40,11 @@ export default {
   },
   beforeMount() {
     try {
-      const id = this.$store.state.usuario.usuario.id;
-      api
-        .get(`/usuario/${id}`)
-        .then((res) => res.data.usuario)
-        .then((dados) => {
-          this.nome = dados.nome;
-          this.email = dados.email;
-          this.telefone = dados.telefone;
-          this.portifolios = dados.portifolios.length;
-        })
-        .catch((erro) => {
-          console.log("ERRO: " + erro);
-        });
+      const usuario = this.$store.state.usuario.usuario;
+      this.foto = `http://localhost:3333/files/perfil/${usuario.foto}`;
+      this.nome = usuario.nome;
+      this.email = usuario.email;
+      this.telefone = usuario.telefone;
     } catch (err) {
       console.log("ERRO: " + err);
     }
@@ -92,8 +89,23 @@ section ul {
 section ul li {
   padding: 5px;
   margin: 5px 0;
-  font-size: 1.3em;
+  font-size: 1.2em;
   color: #444;
+}
+
+section ul li:last-child{
+  width: 100%;
+  text-align: left;
+  margin-top: 40px;
+  background-color: #fff !important;
+}
+section ul li:last-child a{
+  width: 100%;
+  font-size: 1em;
+  background: linear-gradient(15deg, #2e83ea, #38d2e3);
+  padding: 10px 30px;
+  color: #ffffff;
+  border-radius: 5px;
 }
 section ul li:nth-child(even) {
   background-color: #e3dddd;

@@ -3,6 +3,13 @@
     <form action="#">
       <h2>Portifolio</h2>
       <ErroVue :erro="erro" />
+         <label for="nome" class="fa fa-image">
+        <input
+          type="file"
+          required
+          @change="getCapa"
+        />
+      </label>
       <label for="nome" class="fa fa-user">
         <input
           type="text"
@@ -19,7 +26,7 @@
           required
         />
       </label>
-      <label for="profissao">
+      <label for="descricao">
         <textarea
           v-model="descricao"
           id=""
@@ -45,19 +52,26 @@ export default {
   },
   data() {
     return {
+      capa: "",
       nome: "",
       profissao: "",
       descricao: "",
     };
   },
+  beforeMount(){
+    this.nome = this.$store.state.usuario.usuario.nome;
+  },
   methods: {
+    getCapa(event){
+      this.capa = event.target.files[0];
+    },
     novoClick() {
-      const dados = {
-        nome: this.nome,
-        profissao: this.profissao,
-        descricao: this.descricao,
-      };
-
+      const dados = new FormData();
+      dados.append("capa", this.capa, this.capa.name);
+      dados.append("nome", this.nome);
+      dados.append("profissao", this.profissao);
+      dados.append("descricao", this.descricao);
+      
       return this.$emit("novoClick", dados);
     },
   },
