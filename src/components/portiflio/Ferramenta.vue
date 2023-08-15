@@ -1,8 +1,9 @@
 <template>
   <div class="ferramenta">
     <form action="#">
-      <h2>Ferramenta de Trabalho</h2>
+      <h2>Ferramenta ou habilidade</h2>
       <ErroVue :erro="erro" />
+      <span style="margin-bottom: 5px; color: #666">Diga quais são as ferramentas ou suas habilidades que tu usa na elaboração dos seus trabalhos.</span>
       <label for="nome" class="fa fa-wrench">
         <input
           type="text"
@@ -11,8 +12,9 @@
           required
         />
       </label>
+        <span style="margin-bottom: 5px; color: #666;">Selecione qual é o nível de dominio que você tem sobre essa ferramenta ou habilidade.</span>
       <label for="nivel" class="fa fa-trophy">
-        <select v-model="nivel">
+        <select v-model="nivel" >
 			<option value="">Selecione o nivel</option>
 			<option value="junior">Júnior</option>
 			<option value="medio">Medio</option>
@@ -32,15 +34,34 @@ export default {
   components: {
     ErroVue
   },
-  methods: {
-    ferramentaClick(){
-     
-      this.$emit("ferramentaClick");
-    }
-  },
   data(){
     return {
-      erro: ""
+      erro: "",
+      nome: "",
+      nivel: ""
+    }
+  },
+  methods: {
+    ferramentaClick(){
+      try{
+
+      // if(this.nome.length == ""){
+      //   return this.erro = "Nome da ferramenta ou habilidade"
+      // }
+      // if(this.nivel.length == ""){
+      //   return this.erro = "Selecione um nivel"
+      // }
+      const data = {
+        nome: this.nome,
+        nivel: this.nivel
+      }
+      this.$emit("ferramentaClick", data);
+      this.nome = "";
+      this.nivel = "";
+      } catch(erro) {
+        this.erro = "Erro! Tente novamente.",
+        console.log(erro)
+      }
     }
   }
 };

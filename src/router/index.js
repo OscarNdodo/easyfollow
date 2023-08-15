@@ -17,8 +17,13 @@ const routes = [
     name: "portifolio/criar",
     component: () => import("../views/NovoView.vue")
   },
+    {
+    path: "/portifolio/editar/:id",
+    name: "portifolio/editar",
+    component: () => import("../views/EditarPortifolioView.vue")
+  },
   {
-    path: "/portifolio",
+    path: "/portifolio/:id",
     name: "portifolio",
     component: () => import("@/views/PortifolioView.vue")
   },
@@ -31,6 +36,11 @@ const routes = [
     path: "/portifolios",
     name: "portifolios",
     component: () => import("../views/PortifoliosView.vue")
+  },
+  {
+    path: "/usuario/portifolio/:id",
+    name: "portifolio",
+    component: () => import("../views/UsuarioPortifolioView")
   },
   {
     path: "/sobre",

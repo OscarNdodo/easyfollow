@@ -14,9 +14,9 @@
       <li>
         <span>Celular: </span><span>{{ telefone }}</span>
       </li>
-      <!-- <li>
+      <li>
         <span>Portifolios: </span><span>{{ portifolios }} criados</span>
-      </li> -->
+      </li>
       <li>
         <RouterLink to="/portifolio/criar" class="novo-port">
           Novo Portifolio
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  // import api from "@/api";
 export default {
   name: "PerfilView",
   data() {
@@ -39,15 +40,24 @@ export default {
     };
   },
   beforeMount() {
-    try {
+    // try {
       const usuario = this.$store.state.usuario.usuario;
       this.foto = `http://localhost:3333/files/perfil/${usuario.foto}`;
       this.nome = usuario.nome;
       this.email = usuario.email;
       this.telefone = usuario.telefone;
-    } catch (err) {
-      console.log("ERRO: " + err);
-    }
+    //   api.get(`/usuario/${usuario.id}/portifolios`, {
+    //     headers: { authorization: `Bearer ${usuario.token}` }
+    //   })
+    //   .then((res) => res)
+    //   .then((data) => {
+    //     console.log(data)
+    //     this.portifolios = data.length
+    //   })
+    //   .catch((erro) => console.log(erro))
+    // } catch (err) {
+    //   console.log("ERRO: " + err);
+    // }
   },
 };
 </script>
@@ -74,8 +84,8 @@ section aside:first-child h2 {
   border-left: 4px solid #227c9d;
 }
 section aside:first-child img {
-  width: 360px;
-  height: 380px;
+  width: 280px;
+  height: 320px;
   margin-top: 30px;
   border: 1px solid #227c9d;
   border-radius: 0 20px 0 20px;

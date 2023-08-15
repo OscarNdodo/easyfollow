@@ -1,16 +1,32 @@
 <template>
-  <form action="#">
-    <input type="search" name="search" placeholder="Search..." />
+  <form>
+    <input type="search" name="search" placeholder="Pesquisar..." v-model.trim="textSearching" required />
     <button type="submit" @click.prevent="btnPesquisar" class="fa fa-search"></button>
   </form>
 </template>
 
 <script>
+import api from"../../api/";
 export default {
 	name: "PesquisarVue",
+  data(){
+    return {
+      textSearching: ""
+    }
+  },
   methods: {
-    btnPesquisar(){
-      return this.$emit("btnPesquisar");
+    async btnPesquisar(){
+      const data = { nome: this.textSearching };
+      if(data.nome.length < 1){
+        return 0
+      }
+      await api.post("/portifolio/pesquisar", data)
+      .then((res) => res.data)
+      .then((data) => {
+        this.textSearching = ""
+        return this.$emit("btnPesquisar", data);
+      })
+      .catch((erro) => console.log(erro))
     }
   }
 };
@@ -27,6 +43,7 @@ form {
   border: 1px solid #f7f7f7;
   border-radius: 4px;
   padding: 5px 3px;
+  margin-top: 5px;
 }
 form input {
   width: 85%;

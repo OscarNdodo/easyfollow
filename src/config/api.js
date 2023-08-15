@@ -1,3 +1,5 @@
-import api from "axios";
+import axios from "axios";
 
-const baseUrl = api.create("http")
+export default axios.create({
+	baseUrl: "http://localhost:3333"
+});

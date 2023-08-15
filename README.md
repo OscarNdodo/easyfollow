@@ -1,27 +1,4 @@
-### COISAS PARA FAZER
-	Pagina de edicao
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# app03
+## app03
 
 ## Project setup
 ```
@@ -45,3 +22,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## --------------------------------------------------------------------------------------------- ##
+## THINGS TO RESOLVE
+Limpar os erros que ocorrem quando se acessa certas rotas enquanto o usuario nao esta "logado". [Feito]

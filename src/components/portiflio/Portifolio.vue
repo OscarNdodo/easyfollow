@@ -3,32 +3,35 @@
     <form action="#">
       <h2>Portifolio</h2>
       <ErroVue :erro="erro" />
-         <label for="nome" class="fa fa-image">
-        <input
-          type="file"
-          required
-          @change="getCapa"
-        />
+      <span style="margin-bottom: 5px; color: #666">Escolha uma imagem que será a capa para este portifolio.</span>
+      <label for="foto" class="fa fa-image">
+        <input naem="foto" type="file" required @change="getCapa" />
       </label>
+       <span style="margin-bottom: 5px; color: #666">Este é o nome que aparecerá neste portifolio.</span>
       <label for="nome" class="fa fa-user">
         <input
           type="text"
+          name="nome"
           v-model="nome"
           placeholder="Digite nome do portifolio"
           required
         />
       </label>
+       <span style="margin-bottom: 5px; color: #666">Diga qual é a sua profissão ou area d actuação que deve aparecer neste portifolio.</span>
       <label for="profissao" class="fa fa-briefcase">
         <input
           type="text"
+          name="profissao"
           v-model="profissao"
           placeholder="Digite a área de trabalho (profissão)"
           required
         />
       </label>
+       <span style="margin-bottom: 5px; color: #666">Escreva tudo o que puder sobre te, pois isso aparecerá neste portifolio.</span>
       <label for="descricao">
         <textarea
           v-model="descricao"
+          name="descricao"
           id=""
           cols="10"
           rows="5"
@@ -47,31 +50,41 @@ export default {
   components: {
     ErroVue,
   },
-  props: {
-    erro: String
-  },
   data() {
     return {
+      erro: "",
       capa: "",
       nome: "",
       profissao: "",
       descricao: "",
     };
   },
-  beforeMount(){
+  beforeMount() {
     this.nome = this.$store.state.usuario.usuario.nome;
   },
   methods: {
-    getCapa(event){
-      this.capa = event.target.files[0];
+    getCapa(event) {
+      return this.capa = event.target.files[0];
     },
     novoClick() {
+      if(this.capa.length == ""){
+        return this.erro = "Insira uma foto de capa!"
+      }
+      if(this.nome.length == ""){
+        return this.erro = "Insira um nome"
+      }
+      if(this.profissao.length == ""){
+        return this.erro = "Insira uma profissao"
+      }
+      if(this.descricao.length == ""){
+        return this.erro = "Insira uma descrição"
+      }
       const dados = new FormData();
       dados.append("capa", this.capa, this.capa.name);
       dados.append("nome", this.nome);
       dados.append("profissao", this.profissao);
       dados.append("descricao", this.descricao);
-      
+
       return this.$emit("novoClick", dados);
     },
   },
@@ -97,7 +110,10 @@ export default {
   border-radius: 5px;
   box-shadow: 0 0 10px #7f7c7c;
 }
-
+.login form span{
+  font-size: 1em;
+  color: #222;
+}
 .login form h2 {
   text-transform: uppercase;
   font-size: 1.3em;

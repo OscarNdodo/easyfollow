@@ -1,22 +1,20 @@
 <template>
   <header>
-    <img src="/assets/03.jpg" alt="cover" />
+    <img :src="capa" alt="cover" />
     <div class="info">
       <nav>
         <RouterLink to="/">easyfollow.site</RouterLink>
-        <span>&copy;2023</span>
+        <span>&copy;{{ currentDate }}</span>
       </nav>
       <div class="sobre">
         <div class="dados">
-          <!-- <p>Olá, Sou</p> -->
-          <h1>Oscar Ndodo</h1>
-          <h2>Programador</h2>
+          <h1>{{ nome }}</h1>
+          <h2>{{ profissao }}</h2>
         </div>
         <ul>
-          <li><RouterLink to="#" class="fa fa-facebook"></RouterLink></li>
-          <li><RouterLink to="#" class="fa fa-instagram"></RouterLink></li>
-          <li><RouterLink to="#" class="fa fa-whatsapp"></RouterLink></li>
-          <li><RouterLink to="#" class="fa fa-twitter"></RouterLink></li>
+          <!-- <span style="color: #fff; font-size: 1.5em;">Contactos: </span> -->
+          <li><a href="#">+2858{{ telefone }}</a></li>
+          <li v-for="contato in contatos" :key="contato.id"><a :href="contato.link" target="blank">{{ contato.nome }}</a></li>
         </ul>
       </div>
     </div>
@@ -26,6 +24,18 @@
 <script>
 export default {
   name: "introVue",
+  props: {
+    capa: String,
+    nome: String,
+    telefone: String,
+    profissao: String,
+    contatos: Array
+  },
+  computed: {
+    currentDate(){
+      return new Date().getFullYear()
+    }
+  }
 };
 </script>
 
@@ -92,16 +102,18 @@ header .info .sobre .dados h2 {
 }
 header .info .sobre ul {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding-top: 15%;
 }
 header .info .sobre ul li {
   margin: 0 5px;
 }
 header .info .sobre ul li a {
-  color: #ffffffd0;
-  font-size: 1.2em;
+  color: #ffffffde;
+  font-size: .8em;
+  text-decoration: underline;
 }
 
 /** Responsividade **/
@@ -115,6 +127,7 @@ header .info .sobre ul li a {
   }
   header .info {
     padding: 5px 100px;
+    background-color: #11111e7c;
   }
   header .info nav a,
   span {
@@ -132,7 +145,7 @@ header .info .sobre ul li a {
   }
 
   header .info .sobre ul li a {
-    font-size: 1.8em;
+    font-size: 1.3em;
     margin-left: 20px;
   }
 }

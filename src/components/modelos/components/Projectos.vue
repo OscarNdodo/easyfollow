@@ -2,10 +2,12 @@
   <section>
     <h2>Projectos</h2>
     <div class="container">
-      <CardVue />
-      <CardVue />
-      <CardVue />
-      <CardVue />
+      <CardVue v-for="projecto in projectos" 
+      :key="projecto.id" 
+      :imagem="projecto.imagem" 
+      :link="projecto.link" 
+      :nome="projecto.nome" 
+      :descricao="projecto.descricao" />
     </div>
   </section>
 </template>
@@ -14,6 +16,9 @@
 import CardVue from "./Card.vue";
 export default {
   name: "ProjectosVue",
+  props: {
+    projectos: Array
+  },
   components: {
     CardVue,
   },
@@ -50,7 +55,7 @@ section h2 {
     flex-wrap: wrap;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
   section h2 {
     font-size: 1.5em;

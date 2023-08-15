@@ -2,8 +2,10 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    logado: false,
     usuario:{},
-    portifolio: {}
+    portifolios: {},
+    portifolio: null
   },
   getters: {
   },

@@ -1,25 +1,40 @@
 <template>
-  <menu>
+  <menu @click="clikLink">
     <div>
       <PerfilVue />
     </div>
     <ul>
       <li>
-        <RouterLink @click="clikLink" to="/"><span class="fa fa-home"></span>Início</RouterLink>
+        <RouterLink @click="clikLink" to="/"
+          ><span class="fa fa-home"></span>Início</RouterLink
+        >
+      </li>
+      <li v-if="!logado">
+        <RouterLink @click="clikLink" to="/conta"
+          ><span class="fa fa-sign-in"></span>Login</RouterLink
+        >
+      </li>
+      <li v-if="logado">
+        <RouterLink @click="clikLink" to="/portifolio/criar"
+          ><span class="fa fa-plus-circle"></span>Novo</RouterLink
+        >
+      </li>
+      <li v-if="logado">
+        <RouterLink @click="clikLink" to="/portifolios"
+          ><span class="fa fa-dashboard"></span>Todos</RouterLink
+        >
+      </li>
+      <li v-if="logado">
+        <RouterLink @click="clikLink" to="/perfil"
+          ><span class="fa fa-user"></span>Perfil</RouterLink
+        >
       </li>
       <li>
-        <RouterLink @click="clikLink" to="/portifolio/criar"><span class="fa fa-plus-circle"></span>Novo</RouterLink>
+        <RouterLink @click="clikLink" to="/sobre"
+          ><span class="fa fa-globe"></span>Sobre</RouterLink
+        >
       </li>
-      <li>    
-        <RouterLink @click="clikLink" to="/portifolios"><span class="fa fa-dashboard"></span>Todos</RouterLink>
-      </li>
-      <li>
-        <RouterLink @click="clikLink" to="/perfil"><span class="fa fa-user"></span>Perfil</RouterLink>
-      </li>
-      <li>
-        <RouterLink @click="clikLink" to="/sobre"><span class="fa fa-globe"></span>Sobre</RouterLink>
-      </li>
-      <li class="exit" style="color: red" @click="exitMenu">
+      <li class="exit" style="color: red" @click.self="exitMenu">
         Fechar <span class="fa fa-times" style="color: red"></span>
       </li>
     </ul>
@@ -33,11 +48,21 @@ export default {
   components: {
     PerfilVue,
   },
+  props: {
+    logado: null,
+    // data: Object
+  },
+  // data(){
+  //   return {
+  //     foto: this.data.foto,
+  //     nome: this.data.nome
+  //   }
+  // },
   methods: {
     exitMenu() {
       this.$emit("exitMenu");
     },
-    clikLink(){
+    clikLink() {
       this.$emit("clikLink");
     }
   },
@@ -98,7 +123,7 @@ menu ul li a,
 .exit {
   width: 100%;
   padding: 0 10px;
-  font-size: .9em;
+  font-size: 0.9em;
   text-transform: uppercase;
   color: #2a2b30;
   padding: 5px 10px;

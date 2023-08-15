@@ -2,20 +2,13 @@
   <section>
     <aside>
       <h2>Sobre mim</h2>
-      <img src="/assets/02.jpg" alt="user" />
+      <img :src="perfil" :alt="perfil" />
     </aside>
     <aside>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam quas
-        libero alias tempore consectetur c 0onsequuntur quasi asperiores eaque
-        esse sunt temporibus ducimus expedita atque, doloribus in. Nostrum eaque
-        autem modi.
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam quas
-        libero alias tempore consectetur c 0onsequuntur quasi asperiores eaque
-        esse sunt temporibus ducimus expedita atque, doloribus in. Nostrum eaque
-        autem modi.
+        {{ descricao }}
       </p>
-      <button><span class="fa fa-download"></span> Curriculum Vitae</button>
+      <button><span class="fa fa-download"></span>Curriculum Vitae</button>
     </aside>
   </section>
 </template>
@@ -23,6 +16,10 @@
 <script>
 export default {
   name: "SobreVue",
+  props: {
+    perfil: String,
+    descricao: String,
+  }
 };
 </script>
 
@@ -48,8 +45,8 @@ section aside:first-child h2 {
   border-left: 4px solid #227c9d;
 }
 section aside:first-child img {
-  width: 360px;
-  height: 380px;
+  width: 300px;
+  height: 300px;
   margin-top: 30px;
   border: 1px solid #227c9d;
   border-radius: 0 20px 0 20px;
@@ -58,6 +55,7 @@ section aside:first-child img {
 }
 section aside:last-child {
   padding: 20px 20px;
+  margin-top: 20px;
 }
 section aside:last-child p {
   font-size: 1.3em;

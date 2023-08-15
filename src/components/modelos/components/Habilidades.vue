@@ -2,18 +2,11 @@
   <section>
     <h2>Habiildades</h2>
     <ul>
-      <li class="actions">
+      <li class="actions" >
         <span class="tech">Ferramenta</span><span class="nivel">Nivel</span>
       </li>
-      <li>
-        <span class="tech">Node.js</span
-        ><span class="nivel">Pleno</span>
-      </li>
-      <li>
-        <span class="tech">ReactJS</span><span class="nivel">Pleno</span>
-      </li>
-      <li>
-        <span class="tech">PHP</span><span class="nivel">Junior</span>
+      <li v-for="ferramenta in ferramentas" :key="ferramenta.id">
+        <span class="tech">{{ ferramenta.nome }}</span><span class="nivel">{{ ferramenta.nivel }}</span>
       </li>
     </ul>
   </section>
@@ -22,6 +15,9 @@
 <script>
 export default {
   name: "HabilidadesVue",
+  props: {
+    ferramentas: Array,
+  }
 };
 </script>
 

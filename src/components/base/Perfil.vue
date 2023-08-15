@@ -2,15 +2,29 @@
   <div class="perfil">
 	<img src="/assets/02.jpg">
 	<div class="dados">
-		<h4>User name</h4>
-		<!-- <span class="fa fa-sign-out"></span> -->
+		<h4>Perfil</h4>
 	</div>
   </div>
 </template>
 
 <script>
 export default {
-	name: "PerfilVue"
+	name: "PerfilVue",
+	// props: {
+	// 		foto: {
+	// 			type: String,
+	// 			default: "/assets/02.jpg"
+	// 		},
+	// 		nome: {
+	// 			type: String,
+	// 			default: "Usuario"
+	// 		}
+	// },
+	// data(){
+	// 	return {
+	// 		path: "http://localhost:3333/files/perfil/"
+	// 	}
+	// }
 }
 </script>
 

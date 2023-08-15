@@ -2,20 +2,22 @@
   <div class="link-contato">
     <form action="#">
       <h2>Link de contato</h2>
+      <ErroVue :erro="erro" />
+      <span style="margin-bottom: 5px; color: #666">Diga qual é o nome ou tipo de contacto, isto aparecerá neste portifolio.</span>
       <label for="nome" class="fa fa-user">
         <input
           type="text"
-          name="nome"
-          placeholder="Digite nome do link"
+          v-model="nome"
+          placeholder="Digite nome ex: facebook"
           required
         />
       </label>
-      <label for="profissao" class="fa fa-link">
+      <span style="margin-bottom: 5px; color: #666">Agora insira o link/numero que servira de contacto.</span>
+      <label for="link" class="fa fa-link">
         <input
-          type="text"
-          name="profissao"
+          type="url"
+          v-model="link"
           placeholder="Insira a URL do link"
-          required
         />
       </label>
       <button @click.prevent="linkClick">Continuar</button>
@@ -24,11 +26,36 @@
 </template>
 
 <script>
+  import ErroVue from"../base/Erro.vue";
 export default {
   name: "LinkVue",
+  components: {
+    ErroVue
+  },
+  data(){
+    return {
+      nome: "",
+      link: ""
+    }
+  },
   methods: {
     linkClick(){
-      return this.$emit("linkClick");
+      // if(this.nome.length < 4 || this.link.length < 4){
+      //   this.erro = "Priencha os campos!"
+      // }
+      try{
+
+        const data = {
+          nome: this.nome,
+          link: this.link
+        }
+        this.$emit("linkClick", data);
+        this.nome = "";
+        this.link = "";
+      }  catch(erro) {
+          this.erro = "Erro! Tente novamente.",
+          console.log(erro)
+      }
     }
   }
 };

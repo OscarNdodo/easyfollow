@@ -19,7 +19,7 @@
           required
         />
       </label>
-      <p class="conta" @click="criarConta">Não tenho conta</p>
+      <p class="conta" @click.once="criarConta">Não tenho conta</p>
       <button @click.prevent="login">Login</button>
     </form>
   </div>
@@ -40,35 +40,41 @@ export default {
     criarConta() {
       return this.$emit("criarConta");
     },
-    login() {
+    async login() {
       if (this.email.length < 13 || this.senha.length < 6) {
         this.erro = "Email ou senha incorrecta!";
+        return this.cleanErro();
       }
       const dados = {
         email: this.email,
         senha: this.senha,
-      };
-      api
+        logado: true
+      }
+      await api
         .post("/login", dados)
         .then((res) => res.data)
-        .then((dado) => {
-          if (dado.error) {
-            this.erro = dado.msg;
+        .then((dados) => {
+          if (dados.error) {
+            this.erro = dados.msg;
             this.cleanErro();
           } else {
-            this.$store.state.usuario = dado;
+            this.$store.state.usuario = dados;
+            if(this.$store.state.logado == false){
+              this.$store.state.logado = true;
+            }
             this.$router.push("/perfil");
           }
         })
-        .catch((err) => {
-          this.erro = err.response.data.msg;
+        .catch((erro) => {
+          this.erro = "Email ou senha incorrecta!";
+          console.log("ERRO: " + erro);
           this.cleanErro();
         });
     },
     cleanErro() {
       setTimeout(() => {
-        this.erro = undefined;
-      }, 2000);
+        return this.erro = undefined;
+      }, 4000);
     },
   },
 };
@@ -130,6 +136,7 @@ export default {
   width: 90%;
   padding: 5px 10px;
   font-size: 1em;
+  text-transform: none;
 }
 .login form .fa {
   color: #c0bbbb;

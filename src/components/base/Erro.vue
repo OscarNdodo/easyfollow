@@ -13,7 +13,7 @@ export default {
 
 <style scoped>
 .err{
-  color: #F00;
+  color: #F00 !important;
   text-decoration: none;
   margin-bottom: 3px;
   letter-spacing: 1px;

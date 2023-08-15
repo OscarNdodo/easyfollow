@@ -7,10 +7,14 @@
       </section>
       <section class="info">
         <p>
-         Impressione as empresas com as suas experiências, habilidades e projectos realizados. Crie um portifólio moderno com apenas alguns cliques. Selecionado os diversos modelos disponiveis para te, de acordo com a sua área de trabalho.
+          Impressione as empresas com as suas experiências, habilidades e
+          projectos realizados. Crie um portifólio moderno com apenas alguns
+          cliques. Selecionado os diversos modelos disponiveis para te, de
+          acordo com a sua área de trabalho.
         </p>
         <RouterLink to="/conta"
-          >Experimentar <span class="fa fa-smile-o"></span
+          >Comece aqui
+          <span class="fa fa-xm fa-smile-o" style="color: #fff;"></span
         ></RouterLink>
       </section>
     </div>
@@ -41,7 +45,7 @@ main {
 }
 main h2,
 h3 {
-  color: #222222;
+  color: #ffffff;
   z-index: 9;
   font-size: 1.5em;
 }

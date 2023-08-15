@@ -3,8 +3,9 @@
     <form enctype="multipart/form-data">
       <h2>Nova Conta</h2>
        <p class="err">{{ erro }}</p>
+        <span style="text-align: left;">Foto de perfil</span>
       <label for="foto" class="fa fa-image">
-        <input type="file" @change="getFoto" required />
+        <input type="file" @change="getFoto" required style="width: 90%;" />
       </label>
       <label for="nome" class="fa fa-user">
         <input
@@ -66,7 +67,7 @@ export default {
       this.foto = event.target.files[0];
     },
     async criarConta() {
-      // try {
+      try {
         if (this.nome.length < 6 || this.nome == "") {
           this.erro = "O nome é muito curto!";
           this.cleanErro();
@@ -113,11 +114,11 @@ export default {
               this.cleanErro();
             });
         }
-      // } catch (erro) {
-      //   this.erro = "Priencha os campos!";
-      //   this.cleanErro();
-      //   console.log(erro);
-      // }
+      } catch (erro) {
+        this.erro = "Priencha os campos!";
+        this.cleanErro();
+        console.log(erro);
+      }
     },
 
     cleanErro() {
@@ -184,6 +185,7 @@ export default {
 .login form label input {
   padding: 5px 10px;
   font-size: 1em;
+  text-transform: none;
 }
 
 .login form .fa {

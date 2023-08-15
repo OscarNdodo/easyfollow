@@ -22,7 +22,7 @@ import AlertVue from "@/components/portiflio/Alert.vue";
 import api from "@/api";
 
 export default {
-  name: "NovoView",
+  name: "EditarPortifolioViewVue",
   components: {
     PortifolioVue,
     FerramentaVue,
@@ -45,6 +45,15 @@ export default {
       token: ""
     };
   },
+  async beforeMount(){
+    const portifolio = this.$route.params.id;
+    await api.get(`/portifolio/${portifolio}`)
+    .then((res) => res.data)
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((erro) => console.log(erro))
+  },
   methods: {
     clickNao(event) {
       this.confirma = event;
@@ -56,11 +65,11 @@ export default {
     },
     //Criar novo portifolio
     async novoClick(event) {
-      this.idUsuario = this.$store.state.usuario.usuario.id;
-      this.token = this.$store.state.usuario.token
+    this.idUsuario = this.$store.state.usuario.usuario.id;
+    this.token = this.$store.state.usuario.token
       const data = event;
       //Ajax || Axios
-      await api.post(`/usuario/${this.idUsuario}/portifolio/criar`, data, {
+      await api.put(`/usuario/${this.idUsuario}/portifolio/editar`, data, {
         headers: { "Authorization": `Bearer ${this.token}`}
       })
       .then((res) => res.data)
@@ -74,18 +83,17 @@ export default {
         }
       })
       .catch((erro) => {
-        this.erro = erro.msg;
-        // console.log("ERRO: " + erro);
+        this.erro = "Erro! Tente novamente.";
+        console.log("ERRO: " + erro);
       })
 
     },
     // Criar nova ferramenta
     async ferramentaClick(event) {
+      const data = event;
+      this.msgAlert = "Deseja adicionar outra ferramenta ?";
+      this.alert = true;
       if (this.confirma) {
-        const data = event;
-        this.msgAlert = "Deseja adicionar outra ferramenta ?";
-        this.alert = true;
-
         //Ajax ||axios
       await api.post(`/usuario/${this.idUsuario}/portifolio/${this.idPortifolio}/ferramenta/criar`, data, {
         headers: { "Authorization": `Bearer ${this.token}`}
@@ -101,13 +109,14 @@ export default {
         }
       })
       .catch((erro) => {
-        this.erro = erro.msg;
+        this.erro = "Erro! Tente novamente.";
+        console.log("ERRO: " + erro);
       })
-    }else {
+      } else {
         this.alert = false;
         this.ferramenta = false;
         this.projecto = true;
-        this.confirma = true;  
+        this.confirma = true;
       }
 
     },
@@ -131,8 +140,8 @@ export default {
           }
         })
         .catch((erro) => {
-          return this.erro = erro.msg;
-          // console.log("ERRO: " + erro );
+          this.erro = "Erro! Tente novamente.";
+          console.log("ERRO: " + erro );
         })
       } else {
         this.alert = false;
@@ -158,14 +167,14 @@ export default {
         }
       })
       .catch((erro) => {
-        this.erro = erro.msg;
-        // console.log("ERRO: " + erro)
+        this.erro = "Erro! Tente novamente",
+        console.log("ERRO: " + erro)
       })
       } else {
         this.alert = false;
         this.contato = false;
-        this.$router.push("/portifolios")
       }
+      this.$router.push("/portifolios")
     },
   },
 };

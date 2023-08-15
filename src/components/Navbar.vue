@@ -7,7 +7,7 @@
       </ul>
       <PesquisarVue @btnPesquisar="btnPesquisar" />
     </header>
-    <MenuVue v-show="menu" @exitMenu="exitMenu" @clikLink="clikLink" />
+    <MenuVue v-show="menu" @exitMenu="exitMenu" @clikLink="clikLink" :logado="logado" />
   </div>
 </template>
 
@@ -23,11 +23,17 @@ export default {
   data() {
     return {
       menu: false,
+      logado: false,
     };
   },
   methods: {
     showMenu() {
       this.menu = true;
+      this.logado = this.$store.state.logado;
+      // if(this.logado){
+      //   this.data.foto = this.$store.state.usuario.usuario.foto;
+      //   this.data.nome = this.$store.state.usuario.usuario.nome;
+      // }
     },
     exitMenu() {
       this.menu = false;
@@ -35,8 +41,9 @@ export default {
     clikLink(){
       this.menu = false;
     },
-    btnPesquisar(){
-      return this.$emit("btnPesquisar");
+    btnPesquisar(event){
+      const data = event;
+      return this.$emit("btnPesquisar", data);
     }
   },
 };

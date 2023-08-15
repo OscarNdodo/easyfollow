@@ -1,14 +1,14 @@
 <template>
   <div class="item">
-    <img :src="capa" alt="" />
+    <img :src="capa" />
     <ul>
       <li>
-        <RouterLink to="/portifolio">{{ nome }}</RouterLink>
+        <RouterLink :to="path" @click="showPortifolio" :id="id" >{{ nome }}</RouterLink>
         <p>{{ profissao }}</p>
       </li>
       <li>
-        <RouterLink to="/portifolio/criar" class="fa fa-pencil-square" style="color: #227c9d;"></RouterLink>
-        <span class="fa fa-trash" style="color: red;"></span>
+        <RouterLink to="/" :id="id" class="fa fa-pencil-square" style="color: #227c9d;"></RouterLink> 
+        <span @click="deletePortifolio" :id="id" class="fa fa-lg fa-trash" style="color: red;"></span>
       </li>
     </ul>
   </div>
@@ -18,9 +18,25 @@
 export default {
   name: "ItemPortVue",
   props: {
-    capa: {
-      type: String,
-      default: "/assets/02.jpg"
+    id: Number,
+    capa: String,
+    nome: String,
+    profissao: String,
+
+  },
+  data(){
+    return {
+      path: `/usuario/portifolio/@${this.nome.replace(" ", "").replace(" ", "").replace(" ", "").replace(" ", "").toLowerCase()}`,
+  //     pathEdit: `/portifolio/editar/${this.id}`
+    }
+  },
+  methods: {
+    deletePortifolio(event){
+      const id = event.target.id;
+      this.$emit("deletePortifolio", id);
+    },
+    showPortifolio(event){
+      this.$store.state.portifolio = event.target.id;
     }
   }
 };
@@ -28,8 +44,10 @@ export default {
 
 <style scoped>
 img {
-  width: 40px;
+  width: 50px;
+  height: 40px;
   margin: 0 10px 0 0;
+  border-radius: 3px;
 }
 .item {
   width: 96%;
@@ -61,7 +79,7 @@ img {
 	color: #227c9d;
 }
 .item ul li .fa{
-	font-size: 1.2em;
+	font-size: 1.5em;
 	text-align: center;
 	float: right;
 }

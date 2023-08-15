@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="nb">
     <Navbar @btnPesquisar="btnPesquisar"/>
-    <ResultadoBuscaVue @fecharBusca="fecharBusca" v-if="pesquisar" />
+    <ResultadoBuscaVue v-show="pesquisar" :resultados="resultados" @fecharBusca="fecharBusca" />
   </div>
   <RouterView />
 </template>
@@ -18,14 +18,18 @@ export default {
   data() {
     return {
       pesquisar: false,
+      resultados: [],
     };
+  },
+  beforeMount(){
+    return this.$router.push("/");
   },
   methods: {
     fecharBusca() {
       this.pesquisar = false;
     },
-    btnPesquisar(){
-      //Axaios
+    btnPesquisar(event){
+      this.resultados = event.busca;
       this.pesquisar = true;
     }
   },
@@ -35,6 +39,9 @@ export default {
 <style>
 body {
   background-color: #ffffff;
+}
+input[type="email"], input[type="password"]{
+  text-transform: lowercase;
 }
 @media screen and (min-width: 1024px) {
   body {
